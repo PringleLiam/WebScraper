@@ -1,11 +1,9 @@
 package webscraper;
 
 import org.jsoup.nodes.Document;
+import webscraper.connectors.HtmlConnectors;
 import webscraper.parser.HtmlParser;
 import webscraper.parser.RipeFruitParser;
-import webscraper.connectors.HtmlConnectors;
-
-import java.io.File;
 
 /**
  * Created by Liam on 21/09/2016.
@@ -13,9 +11,8 @@ import java.io.File;
 public class RipeFruitRunner {
 
     public static void main(String[] args){
-        HtmlConnectors htmlConnectors = new HtmlConnectors();
         HtmlParser htmlParser = new RipeFruitParser();
-        Document doc = htmlConnectors.getDocumentFromFile(new File("test.html"));
+        Document doc = HtmlConnectors.getDocumentFromURL("http://hiring-tests.s3-website-eu-west-1.amazonaws.com/2015_Developer_Scrape/5_products.html");
         System.out.println(htmlParser.parseHtml(doc));
 
     }

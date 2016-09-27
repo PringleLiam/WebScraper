@@ -46,7 +46,7 @@ public class RipeFruitParser implements HtmlParser {
     private FoodItem selectFoodItem(Element element, Document innerDocument) {
         FoodItem foodItem = new FoodItem();
         if (innerDocument != null) {
-            foodItem = new FoodItem(selectTitle(element), getSizeInKB(innerDocument), selectDescription(innerDocument), selectPrice(element));
+            foodItem = new FoodItem(selectTitle(element), getSizeInKb(innerDocument), selectDescription(innerDocument), selectPrice(element));
         }
         return foodItem;
     }
@@ -65,7 +65,7 @@ public class RipeFruitParser implements HtmlParser {
       return Double.parseDouble(priceString);
     }
 
-    private String getSizeInKB(Document innerDocument) {
+    private String getSizeInKb(Document innerDocument) {
         return (innerDocument.html().getBytes().length) / 1000 + "kb";
     }
 
