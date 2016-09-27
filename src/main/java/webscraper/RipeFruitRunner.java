@@ -1,23 +1,21 @@
 package webscraper;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import webscraper.parser.HtmlParser;
 import webscraper.parser.RipeFruitParser;
-import webscraper.selectors.HtmlSelector;
+import webscraper.connectors.HtmlConnectors;
 
 import java.io.File;
-import java.nio.charset.Charset;
 
 /**
  * Created by Liam on 21/09/2016.
  */
-public class CommandLineRunner {
+public class RipeFruitRunner {
 
     public static void main(String[] args){
-        HtmlSelector htmlSelector = new HtmlSelector();
+        HtmlConnectors htmlConnectors = new HtmlConnectors();
         HtmlParser htmlParser = new RipeFruitParser();
-        Document doc = htmlSelector.getDocumentFromFile(new File("test.html"));
+        Document doc = htmlConnectors.getDocumentFromFile(new File("test.html"));
         System.out.println(htmlParser.parseHtml(doc));
 
     }
