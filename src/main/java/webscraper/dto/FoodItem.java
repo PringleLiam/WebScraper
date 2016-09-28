@@ -3,25 +3,34 @@ package webscraper.dto;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by Liam on 22/09/2016.
  */
-@Getter
 public class FoodItem implements Serializable {
+    @Getter
     private String title;
+
+    @Getter
     private String size;
+
+    @Getter
     private String description;
-    private double price;
+    private BigDecimal unit_price;
 
     public FoodItem() {
     }
 
-    public FoodItem(String title, String size, String description, double price) {
+    public FoodItem(String title, String size, String description, double unit_price) {
         this.title = title;
         this.size = size;
         this.description = description;
-        this.price = price;
+        this.unit_price = new BigDecimal(Double.toString(unit_price));
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unit_price;
     }
 
     @Override
@@ -30,7 +39,7 @@ public class FoodItem implements Serializable {
                 "title='" + title + '\'' +
                 ", size='" + size + '\'' +
                 ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
+                ", unit_price='" + unit_price + '\'' +
                 '}';
     }
 }

@@ -12,37 +12,33 @@ import java.util.List;
 @Getter
 public class FoodItems implements Serializable {
     private final static int PLACES = 2;
-    private double totalPrice;
-    private List<FoodItem> foodItems;
+    private BigDecimal total;
+    private List<FoodItem> results;
 
     public FoodItems() {
-        this.foodItems = new ArrayList<>();
+        this.results = new ArrayList<>(); this.total = new BigDecimal("0.00");
     }
 
     public void addFoodItem(FoodItem foodItem) {
-        this.foodItems.add(foodItem);
+        this.results.add(foodItem);
         addToTotalPrice(foodItem);
         roundUpPrice();
     }
 
     private void addToTotalPrice(FoodItem foodItem) {
-        totalPrice += foodItem.getPrice();
+         this.total = this.total.add(foodItem.getUnitPrice());
     }
 
-    public void removeFoodItem(FoodItem foodItem) {
-        this.foodItems.remove(foodItem);
-        removeFromTotalPrice(foodItem);
-        roundUpPrice();
-    }
+    @Override
+    public String toString() {
 
-    private void removeFromTotalPrice(FoodItem foodItem) {
-        totalPrice -= foodItem.getPrice();
-
+       return "FoodItems{" +
+                "total=" + total +
+                ", results=" + results +
+                '}';
     }
 
     private void roundUpPrice() {
-        BigDecimal bigDecimal = new BigDecimal(this.getTotalPrice());
-        bigDecimal = bigDecimal.setScale(PLACES, RoundingMode.HALF_UP);
-        this.totalPrice = bigDecimal.doubleValue();
+        this.total = total.setScale(PLACES, RoundingMode.HALF_UP);
     }
 }

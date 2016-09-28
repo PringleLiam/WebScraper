@@ -15,30 +15,36 @@ import java.net.URL;
 public class HtmlConnectors {
     private static final int CONNECTION_TIMEOUT = 6000;
     private static final int CONNECTION_ATTEMPTS = 3;
-    private static final int TIME_BETWEEN_REQUESTS = 6000;
+    private static final int TIME_BETWEEN_REQUESTS = 60;
 
 
     public static Document getDocumentFromURL(String url) {
-        Document document = null;
+        Document document;
         URL urlAddress = getUrlFromString(url);
+        document = fetchDocument(urlAddress);
+
+        if (document != null) {
+            return document;
+        } else {
+            throw new CouldNotConnectException("Couldn't connect after " + CONNECTION_ATTEMPTS + " attempts");
+        }
+    }
+
+    private static Document fetchDocument(URL urlAddress) {
+        Document document = null;
         for (int i = 0; i < CONNECTION_ATTEMPTS; i++) {
             pauseBetweenRequests(TIME_BETWEEN_REQUESTS);
             try {
                 document = Jsoup.parse(urlAddress, CONNECTION_TIMEOUT);
             } catch (IOException e) {
-                e.printStackTrace();
                 continue;
             }
             break;
         }
-        if (document != null) {
-            return document;
-        } else {
-            throw new CouldNotConnectException("Couldn't connect after "+ CONNECTION_ATTEMPTS +" attempts");
-        }
+        return document;
     }
 
-    private static void pauseBetweenRequests(int timeInMs){
+    private static void pauseBetweenRequests(int timeInMs) {
         try {
             Thread.sleep(timeInMs);
         } catch (InterruptedException e) {
@@ -57,13 +63,4 @@ public class HtmlConnectors {
         return urlAddress;
     }
 
-    public Document getDocumentFromFile(File file) {
-        Document document = null;
-        try {
-            document = Jsoup.parse(file, "windows-1258");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return document;
-    }
 }

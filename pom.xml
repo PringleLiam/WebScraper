@@ -7,6 +7,8 @@
     <groupId>Web-Scraper</groupId>
     <artifactId>Web-Scraper</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
     <build>
         <plugins>
             <plugin>
@@ -15,11 +17,41 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+
                 </configuration>
+            </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>webscraper.RipeFruitRunner</mainClass>
+                    </manifest>
+                </archive>
+
+            </configuration>
+        </plugin>
+            <plugin>
+                <groupId>com.jolira</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>webscraper.RipeFruitRunner</mainClass>
+                            <onejarVersion>0.97</onejarVersion>
+                            <attachToBuild>true</attachToBuild>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 
     <dependencies>
         <dependency>
@@ -36,6 +68,12 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
