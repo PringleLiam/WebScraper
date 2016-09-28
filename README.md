@@ -1,6 +1,3 @@
-# WebScraper
-
-
 # Requirements to run this project
 - Java 8
 - Maven
